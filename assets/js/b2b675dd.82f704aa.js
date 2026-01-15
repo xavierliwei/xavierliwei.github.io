@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwei_li_website=self.webpackChunkwei_li_website||[]).push([[533],{8017:e=>{e.exports=JSON.parse('{"permalink":"/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":2,"blogDescription":"Thoughts on software engineering and technology","blogTitle":"Blog"}')}}]);
