@@ -10,32 +10,32 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Software Development',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'ML Infrastructure',
+    Svg: require('@site/static/img/ml_infrastructure.svg').default,
     description: (
       <>
-        Passionate about building scalable and efficient software solutions.
-        Experience with modern development practices and technologies.
+        Building scalable machine learning systems and recommendation infrastructure.
+        Experienced with Apache Spark, Apache Kafka, and distributed computing.
       </>
     ),
   },
   {
-    title: 'Problem Solving',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Distributed Systems',
+    Svg: require('@site/static/img/distributed_systems.svg').default,
     description: (
       <>
-        Enthusiastic about tackling complex technical challenges and finding
-        elegant solutions to difficult problems.
+        Designing and implementing reliable, high-performance distributed systems.
+        Proficient in Java, Python, gRPC, and Trino for data processing at scale.
       </>
     ),
   },
   {
-    title: 'Continuous Learning',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'Full-Stack Development',
+    Svg: require('@site/static/img/fullstack_dev.svg').default,
     description: (
       <>
-        Always exploring new technologies and best practices to stay current
-        in the ever-evolving tech landscape.
+        Building end-to-end solutions from React frontends to backend services.
+        Experience with AWS services, TypeScript, and modern web technologies.
       </>
     ),
   },
@@ -59,6 +59,7 @@ export default function HomepageFeatures(): JSX.Element {
   return (
     <section className={styles.features}>
       <div className="container">
+        <h2 className="text--center" style={{marginBottom: '2rem'}}>Skills & Expertise</h2>
         <div className="row">
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} />

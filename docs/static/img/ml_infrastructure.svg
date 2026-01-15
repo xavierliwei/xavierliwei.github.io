@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Neural Network / ML Infrastructure -->
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="90" fill="#f0f4ff" opacity="0.5"/>
+
+  <!-- Connection lines -->
+  <line x1="50" y1="60" x2="100" y2="100" stroke="#667eea" stroke-width="2" opacity="0.6"/>
+  <line x1="50" y1="140" x2="100" y2="100" stroke="#667eea" stroke-width="2" opacity="0.6"/>
+  <line x1="100" y1="100" x2="150" y2="60" stroke="#667eea" stroke-width="2" opacity="0.6"/>
+  <line x1="100" y1="100" x2="150" y2="140" stroke="#667eea" stroke-width="2" opacity="0.6"/>
+  <line x1="50" y1="60" x2="100" y2="40" stroke="#667eea" stroke-width="2" opacity="0.6"/>
+  <line x1="50" y1="140" x2="100" y2="160" stroke="#667eea" stroke-width="2" opacity="0.6"/>
+  <line x1="100" y1="40" x2="150" y2="60" stroke="#667eea" stroke-width="2" opacity="0.6"/>
+  <line x1="100" y1="160" x2="150" y2="140" stroke="#667eea" stroke-width="2" opacity="0.6"/>
+
+  <!-- Input layer nodes -->
+  <circle cx="50" cy="60" r="12" fill="url(#gradient1)"/>
+  <circle cx="50" cy="100" r="12" fill="url(#gradient1)"/>
+  <circle cx="50" cy="140" r="12" fill="url(#gradient1)"/>
+
+  <!-- Hidden layer nodes -->
+  <circle cx="100" cy="40" r="14" fill="url(#gradient1)"/>
+  <circle cx="100" cy="100" r="18" fill="url(#gradient1)"/>
+  <circle cx="100" cy="160" r="14" fill="url(#gradient1)"/>
+
+  <!-- Output layer nodes -->
+  <circle cx="150" cy="60" r="12" fill="url(#gradient1)"/>
+  <circle cx="150" cy="140" r="12" fill="url(#gradient1)"/>
+
+  <!-- Additional connections for depth -->
+  <line x1="50" y1="100" x2="100" y2="40" stroke="#667eea" stroke-width="1.5" opacity="0.4"/>
+  <line x1="50" y1="100" x2="100" y2="160" stroke="#667eea" stroke-width="1.5" opacity="0.4"/>
+  <line x1="100" y1="40" x2="150" y2="140" stroke="#667eea" stroke-width="1.5" opacity="0.3"/>
+  <line x1="100" y1="160" x2="150" y2="60" stroke="#667eea" stroke-width="1.5" opacity="0.3"/>
+</svg>

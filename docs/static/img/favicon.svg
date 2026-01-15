@@ -1,23 +1,22 @@
-<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="favGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#6366f1"/>
       <stop offset="100%" style="stop-color:#8b5cf6"/>
     </linearGradient>
   </defs>
-  <!-- Background circle -->
-  <circle cx="20" cy="20" r="18" fill="url(#logoGrad)"/>
+  <rect width="32" height="32" rx="6" fill="url(#favGrad)"/>
   <!-- W letter -->
-  <path d="M10 12 L13 26 L17 18 L21 26 L24 12"
+  <path d="M6 8 L9 22 L13 14 L17 22 L20 8"
         stroke="white"
-        stroke-width="2.5"
+        stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
         fill="none"/>
   <!-- L letter -->
-  <path d="M26 12 L26 26 L32 26"
+  <path d="M22 8 L22 22 L28 22"
         stroke="white"
-        stroke-width="2.5"
+        stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
         fill="none"/>

@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Wei Li',
-  tagline: 'Software Engineer & Technology Enthusiast',
+  tagline: 'Senior Software Engineer @ TikTok | ML Infrastructure | Carnegie Mellon University',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
