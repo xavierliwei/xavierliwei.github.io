@@ -25,6 +25,11 @@ function HomepageHeader() {
             href="https://linkedin.com/in/wei-li-ca">
             Connect on LinkedIn
           </Link>
+          <Link
+            className="button button--secondary button--lg"
+            href="mailto:xavierliwei@gmail.com">
+            Email Me
+          </Link>
         </div>
       </div>
     </header>

@@ -91,6 +91,10 @@ const config = {
                 label: 'GitHub',
                 href: 'https://github.com/xavierliwei',
               },
+              {
+                label: 'Email',
+                href: 'mailto:xavierliwei@gmail.com',
+              },
             ],
           },
           {
