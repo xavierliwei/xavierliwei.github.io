@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwei_li_website=self.webpackChunkwei_li_website||[]).push([[713],{3457:e=>{e.exports=JSON.parse('[{"label":"welcome","permalink":"/blog/tags/welcome","count":1},{"label":"introduction","permalink":"/blog/tags/introduction","count":1}]')}}]);

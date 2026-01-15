@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwei_li_website=self.webpackChunkwei_li_website||[]).push([[535],{5641:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Welcome to My Personal Website","permalink":"/blog/welcome"}]}')}}]);
