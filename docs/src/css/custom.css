@@ -28,3 +28,80 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* Mobile-friendly improvements */
+@media screen and (max-width: 996px) {
+  /* Better spacing for mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Readable text on mobile */
+  article {
+    font-size: 16px;
+  }
+
+  /* Better touch targets for navigation */
+  .navbar__item {
+    padding: 0.5rem;
+  }
+
+  /* Adjust footer for mobile */
+  .footer {
+    padding: 2rem 1rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  /* Smaller padding on very small screens */
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  /* Stack footer links vertically on small screens */
+  .footer__links {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* Larger touch targets for mobile */
+  .navbar__link,
+  .navbar__item {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Ensure blog cards are full width on mobile */
+  .margin-bottom--lg {
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* Ensure images are responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Better blog post readability on mobile */
+@media screen and (max-width: 768px) {
+  .markdown {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .markdown h1 {
+    font-size: 1.75rem;
+  }
+
+  .markdown h2 {
+    font-size: 1.5rem;
+  }
+
+  .markdown h3 {
+    font-size: 1.25rem;
+  }
+}

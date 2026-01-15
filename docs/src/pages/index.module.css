@@ -12,7 +12,31 @@
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 2rem;
+    padding: 2rem 1rem;
+  }
+
+  .heroBanner h1 {
+    font-size: 2rem !important;
+  }
+
+  .heroBanner p {
+    font-size: 1.1rem !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .heroBanner {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .heroBanner h1 {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+
+  .heroBanner p {
+    font-size: 1rem !important;
+    padding: 0 0.5rem;
   }
 }
 
@@ -20,4 +44,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+@media screen and (max-width: 576px) {
+  .buttons {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .buttons a {
+    width: 100%;
+    max-width: 300px;
+  }
 }
