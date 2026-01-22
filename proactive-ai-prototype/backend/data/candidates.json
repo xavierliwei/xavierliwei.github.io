@@ -1,0 +1,603 @@
+{
+  "candidates": [
+    {
+      "id": "kafka-exactly-once",
+      "title": "Kafka Exactly-Once Semantics",
+      "summary": "Understanding exactly-once delivery guarantees in Apache Kafka. Covers idempotent producers, transactions, and consumer group semantics.",
+      "category": "learning",
+      "keywords": [
+        "kafka",
+        "distributed-systems",
+        "messaging",
+        "event-sourcing",
+        "exactly-once",
+        "streaming"
+      ],
+      "source": "confluent-blog",
+      "engagement_score": 5.5,
+      "created_at": "2026-01-10T10:00:00Z",
+      "content_type": "article",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "cap-theorem-deep-dive",
+      "title": "CAP Theorem Trade-offs in Practice",
+      "summary": "A practical guide to understanding and applying the CAP theorem when designing distributed systems. Real-world examples from Netflix, Amazon, and Google.",
+      "category": "learning",
+      "keywords": [
+        "cap-theorem",
+        "distributed-systems",
+        "consistency",
+        "availability",
+        "partition-tolerance"
+      ],
+      "source": "martin-kleppmann",
+      "engagement_score": 5.8,
+      "created_at": "2026-01-08T14:30:00Z",
+      "content_type": "article",
+      "difficulty": "advanced"
+    },
+    {
+      "id": "rust-async-patterns",
+      "title": "Async Patterns in Rust",
+      "summary": "Master async/await in Rust with practical patterns for building high-performance concurrent applications.",
+      "category": "learning",
+      "keywords": [
+        "rust",
+        "async",
+        "concurrency",
+        "programming",
+        "performance"
+      ],
+      "source": "rust-blog",
+      "engagement_score": 4.2,
+      "created_at": "2026-01-12T09:00:00Z",
+      "content_type": "tutorial",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "pr-review-comments",
+      "title": "PR #234 Needs Attention",
+      "summary": "Your pull request has 3 new comments, including a blocking concern about error handling in the authentication module.",
+      "category": "work",
+      "keywords": [
+        "code-review",
+        "pull-request",
+        "github",
+        "teamwork"
+      ],
+      "source": "github",
+      "engagement_score": 5.0,
+      "created_at": "2026-01-15T08:00:00Z",
+      "content_type": "notification",
+      "priority": "high"
+    },
+    {
+      "id": "sprint-deadline",
+      "title": "Sprint Deadline Approaching",
+      "summary": "3 tasks remaining in current sprint with 2 days left. Would you like help prioritizing?",
+      "category": "work",
+      "keywords": [
+        "project-management",
+        "sprint",
+        "deadline",
+        "productivity"
+      ],
+      "source": "jira",
+      "engagement_score": 4.0,
+      "created_at": "2026-01-15T07:00:00Z",
+      "content_type": "notification",
+      "priority": "medium"
+    },
+    {
+      "id": "eu-ai-regulation",
+      "title": "EU AI Act: New Requirements for Recommendation Systems",
+      "summary": "The European Union has proposed new transparency and accountability requirements for AI-powered recommendation systems. Key implications for ML infrastructure teams.",
+      "category": "news",
+      "keywords": [
+        "ai-regulation",
+        "eu",
+        "ml-systems",
+        "compliance",
+        "recommendation-systems"
+      ],
+      "source": "techcrunch",
+      "engagement_score": 3.8,
+      "created_at": "2026-01-14T11:00:00Z",
+      "content_type": "news",
+      "region": "europe"
+    },
+    {
+      "id": "openai-gpt5-announcement",
+      "title": "GPT-5 Architecture Details Revealed",
+      "summary": "OpenAI shares technical details about GPT-5's architecture, including new scaling approaches and multimodal capabilities.",
+      "category": "news",
+      "keywords": [
+        "llm",
+        "gpt",
+        "openai",
+        "machine-learning",
+        "ai"
+      ],
+      "source": "openai-blog",
+      "engagement_score": 5.6,
+      "created_at": "2026-01-13T16:00:00Z",
+      "content_type": "news",
+      "region": "global"
+    },
+    {
+      "id": "sleep-optimization",
+      "title": "Sleep Optimization for Night Owls",
+      "summary": "Research-backed strategies for improving sleep quality when you have an irregular schedule. Includes specific techniques for engineers.",
+      "category": "health",
+      "keywords": [
+        "sleep",
+        "health",
+        "productivity",
+        "wellness",
+        "work-life-balance"
+      ],
+      "source": "huberman-lab",
+      "engagement_score": 3.5,
+      "created_at": "2026-01-11T20:00:00Z",
+      "content_type": "article",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "kubernetes-cost-optimization",
+      "title": "Kubernetes Cost Optimization Strategies",
+      "summary": "Reduce your K8s cloud spend by 40% with these battle-tested optimization techniques from production environments.",
+      "category": "learning",
+      "keywords": [
+        "kubernetes",
+        "cloud",
+        "cost-optimization",
+        "devops",
+        "infrastructure"
+      ],
+      "source": "kubernetes-blog",
+      "engagement_score": 4.1,
+      "created_at": "2026-01-09T13:00:00Z",
+      "content_type": "guide",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "vector-database-comparison",
+      "title": "Vector Databases Compared: Pinecone vs Weaviate vs Milvus",
+      "summary": "An in-depth comparison of popular vector databases for AI applications, with benchmarks and use case recommendations.",
+      "category": "learning",
+      "keywords": [
+        "vector-database",
+        "ai",
+        "embeddings",
+        "search",
+        "ml-infrastructure"
+      ],
+      "source": "ai-weekly",
+      "engagement_score": 5.3,
+      "created_at": "2026-01-07T15:00:00Z",
+      "content_type": "comparison",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "team-standup-missed",
+      "title": "You Missed Today's Standup",
+      "summary": "Quick summary: 2 blockers discussed, deployment scheduled for tomorrow. Want me to fill you in?",
+      "category": "work",
+      "keywords": [
+        "team",
+        "standup",
+        "communication",
+        "meetings"
+      ],
+      "source": "slack",
+      "engagement_score": 3.0,
+      "created_at": "2026-01-15T10:30:00Z",
+      "content_type": "notification",
+      "priority": "low"
+    },
+    {
+      "id": "focus-time-suggestion",
+      "title": "Block Focus Time This Week?",
+      "summary": "I noticed you've had 8 meeting-free hours in the last 2 weeks. Want help blocking focus time on your calendar?",
+      "category": "productivity",
+      "keywords": [
+        "focus",
+        "calendar",
+        "productivity",
+        "deep-work",
+        "time-management"
+      ],
+      "source": "calendar-analysis",
+      "engagement_score": 3.7,
+      "created_at": "2026-01-15T06:00:00Z",
+      "content_type": "suggestion",
+      "priority": "medium"
+    },
+    {
+      "id": "raft-consensus-explained",
+      "title": "Raft Consensus Algorithm Explained",
+      "summary": "A visual guide to understanding Raft - the understandable consensus algorithm. Learn leader election, log replication, and safety guarantees.",
+      "category": "learning",
+      "keywords": [
+        "raft",
+        "consensus",
+        "distributed-systems",
+        "leader-election",
+        "replication"
+      ],
+      "source": "raft-paper",
+      "engagement_score": 5.5,
+      "created_at": "2026-01-06T10:00:00Z",
+      "content_type": "tutorial",
+      "difficulty": "advanced"
+    },
+    {
+      "id": "typescript-5-features",
+      "title": "TypeScript 5.4: New Features You Should Know",
+      "summary": "Explore the latest TypeScript features including improved type inference, const type parameters, and better narrowing.",
+      "category": "learning",
+      "keywords": [
+        "typescript",
+        "javascript",
+        "programming",
+        "frontend",
+        "type-system"
+      ],
+      "source": "typescript-blog",
+      "engagement_score": 5.0,
+      "created_at": "2026-01-12T14:00:00Z",
+      "content_type": "article",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "observability-stack",
+      "title": "Building a Modern Observability Stack",
+      "summary": "Combine Prometheus, Grafana, and Jaeger for comprehensive monitoring, metrics, and distributed tracing in your microservices.",
+      "category": "learning",
+      "keywords": [
+        "observability",
+        "monitoring",
+        "prometheus",
+        "grafana",
+        "distributed-tracing",
+        "devops"
+      ],
+      "source": "grafana-labs",
+      "engagement_score": 4.4,
+      "created_at": "2026-01-05T09:00:00Z",
+      "content_type": "guide",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "claude-code-tips",
+      "title": "Getting the Most Out of Claude Code",
+      "summary": "Advanced tips for using Claude Code effectively: custom prompts, multi-file editing, and integrating with your development workflow.",
+      "category": "learning",
+      "keywords": [
+        "ai",
+        "llm",
+        "claude",
+        "developer-tools",
+        "productivity"
+      ],
+      "source": "anthropic-docs",
+      "engagement_score": 5.7,
+      "created_at": "2026-01-14T08:00:00Z",
+      "content_type": "tutorial",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "postgres-performance",
+      "title": "PostgreSQL Performance Tuning Deep Dive",
+      "summary": "Query optimization, indexing strategies, and configuration tuning for high-performance PostgreSQL deployments.",
+      "category": "learning",
+      "keywords": [
+        "postgresql",
+        "database",
+        "performance",
+        "sql",
+        "optimization"
+      ],
+      "source": "pganalyze",
+      "engagement_score": 4.2,
+      "created_at": "2026-01-04T11:00:00Z",
+      "content_type": "guide",
+      "difficulty": "advanced"
+    },
+    {
+      "id": "grpc-best-practices",
+      "title": "gRPC Best Practices for Production",
+      "summary": "Learn gRPC patterns for building reliable, efficient APIs: error handling, deadlines, load balancing, and service mesh integration.",
+      "category": "learning",
+      "keywords": [
+        "grpc",
+        "api",
+        "microservices",
+        "protocol-buffers",
+        "networking"
+      ],
+      "source": "grpc-io",
+      "engagement_score": 3.9,
+      "created_at": "2026-01-03T15:00:00Z",
+      "content_type": "article",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "incident-postmortem",
+      "title": "New Incident Postmortem Available",
+      "summary": "The postmortem for yesterday's API latency spike has been published. Key takeaway: connection pool exhaustion under load.",
+      "category": "work",
+      "keywords": [
+        "incident",
+        "postmortem",
+        "reliability",
+        "debugging",
+        "on-call"
+      ],
+      "source": "incident-io",
+      "engagement_score": 4.1,
+      "created_at": "2026-01-15T09:00:00Z",
+      "content_type": "notification",
+      "priority": "medium"
+    },
+    {
+      "id": "anthropic-claude-update",
+      "title": "Claude 3.5 Sonnet Performance Improvements",
+      "summary": "Anthropic announces significant performance improvements to Claude 3.5 Sonnet, with faster response times and improved reasoning.",
+      "category": "news",
+      "keywords": [
+        "anthropic",
+        "claude",
+        "llm",
+        "ai",
+        "machine-learning"
+      ],
+      "source": "anthropic-blog",
+      "engagement_score": 5.8,
+      "created_at": "2026-01-13T10:00:00Z",
+      "content_type": "news",
+      "region": "global"
+    },
+    {
+      "id": "exercise-breaks",
+      "title": "The Science of Movement Breaks",
+      "summary": "Research shows that 5-minute movement breaks every hour improve focus by 25%. Here's a simple routine for desk workers.",
+      "category": "health",
+      "keywords": [
+        "exercise",
+        "health",
+        "focus",
+        "productivity",
+        "wellness"
+      ],
+      "source": "nature-medicine",
+      "engagement_score": 3.3,
+      "created_at": "2026-01-10T18:00:00Z",
+      "content_type": "article",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "redis-data-structures",
+      "title": "Advanced Redis Data Structures",
+      "summary": "Go beyond simple key-value: streams, sorted sets, HyperLogLog, and when to use each for optimal performance.",
+      "category": "learning",
+      "keywords": [
+        "redis",
+        "database",
+        "caching",
+        "data-structures",
+        "performance"
+      ],
+      "source": "redis-university",
+      "engagement_score": 4.0,
+      "created_at": "2026-01-02T12:00:00Z",
+      "content_type": "tutorial",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "code-review-merged",
+      "title": "Your Code Review Was Merged",
+      "summary": "The refactoring you reviewed for the payment service has been merged. 3 follow-up issues were created.",
+      "category": "work",
+      "keywords": [
+        "code-review",
+        "merge",
+        "github",
+        "teamwork"
+      ],
+      "source": "github",
+      "engagement_score": 3.5,
+      "created_at": "2026-01-15T11:00:00Z",
+      "content_type": "notification",
+      "priority": "low"
+    },
+    {
+      "id": "aws-cost-anomaly",
+      "title": "AWS Cost Anomaly Detected",
+      "summary": "Unusual spike in EC2 costs detected: 40% higher than last week. Might be related to the new batch job configuration.",
+      "category": "work",
+      "keywords": [
+        "aws",
+        "cloud",
+        "cost",
+        "infrastructure",
+        "monitoring"
+      ],
+      "source": "aws-cost-explorer",
+      "engagement_score": 4.5,
+      "created_at": "2026-01-15T07:30:00Z",
+      "content_type": "notification",
+      "priority": "high"
+    },
+    {
+      "id": "webassembly-guide",
+      "title": "WebAssembly for Backend Developers",
+      "summary": "Why WebAssembly isn't just for browsers: sandboxing, portability, and near-native performance for plugins and serverless.",
+      "category": "learning",
+      "keywords": [
+        "webassembly",
+        "wasm",
+        "performance",
+        "serverless",
+        "sandboxing"
+      ],
+      "source": "bytecode-alliance",
+      "engagement_score": 3.8,
+      "created_at": "2026-01-01T14:00:00Z",
+      "content_type": "article",
+      "difficulty": "advanced"
+    },
+    {
+      "id": "startup-funding-news",
+      "title": "Record AI Infrastructure Funding in Q4",
+      "summary": "AI infrastructure startups raised $4.2B in Q4 2025, with vector databases and inference optimization leading the charge.",
+      "category": "news",
+      "keywords": [
+        "startup",
+        "funding",
+        "ai",
+        "infrastructure",
+        "venture-capital"
+      ],
+      "source": "techcrunch",
+      "engagement_score": 4.6,
+      "created_at": "2026-01-08T09:00:00Z",
+      "content_type": "news",
+      "region": "global"
+    }
+  ],
+  "users": [
+    {
+      "id": "demo_user",
+      "name": "Demo User",
+      "email": "demo@example.com",
+      "topics_of_interest": [
+        "distributed-systems",
+        "kafka",
+        "ml-infrastructure",
+        "python",
+        "typescript",
+        "databases",
+        "cloud",
+        "ai"
+      ],
+      "frequency": "sometimes",
+      "preferred_hour_start": 9,
+      "preferred_hour_end": 18,
+      "created_at": "2026-01-01T00:00:00Z"
+    }
+  ],
+  "user_activity": [
+    {
+      "user_id": "demo_user",
+      "activity_type": "article_read",
+      "keywords": [
+        "kafka",
+        "event-sourcing"
+      ],
+      "timestamp": "2026-01-14T14:00:00Z"
+    },
+    {
+      "user_id": "demo_user",
+      "activity_type": "search",
+      "query": "kafka consumer groups",
+      "timestamp": "2026-01-13T11:00:00Z"
+    },
+    {
+      "user_id": "demo_user",
+      "activity_type": "article_read",
+      "keywords": [
+        "distributed-systems",
+        "cap-theorem"
+      ],
+      "timestamp": "2026-01-12T16:00:00Z"
+    },
+    {
+      "user_id": "demo_user",
+      "activity_type": "search",
+      "query": "exactly once kafka",
+      "timestamp": "2026-01-11T09:00:00Z"
+    },
+    {
+      "user_id": "demo_user",
+      "activity_type": "pr_opened",
+      "pr_id": "234",
+      "timestamp": "2026-01-13T15:00:00Z"
+    }
+  ],
+  "feedback": [
+    {
+      "id": "9a08352f-e8d6-49b9-96fa-88ba78d5d6b1",
+      "user_id": "demo_user",
+      "candidate_id": "kafka-exactly-once",
+      "action": "started",
+      "conversation_turns": 1,
+      "created_at": "2026-01-21T15:31:36.632033"
+    },
+    {
+      "id": "6fc2532e-bed2-4146-b449-2b718b182ead",
+      "user_id": "demo_user",
+      "candidate_id": "claude-code-tips",
+      "action": "started",
+      "conversation_turns": 2,
+      "created_at": "2026-01-21T17:37:12.725483"
+    },
+    {
+      "id": "01c71a28-2a56-4932-9663-1605de648dc9",
+      "user_id": "demo_user",
+      "candidate_id": "raft-consensus-explained",
+      "action": "started",
+      "conversation_turns": 3,
+      "created_at": "2026-01-21T17:37:18.415476"
+    },
+    {
+      "id": "2fcbe5fe-13d8-484a-82b6-717e6128f550",
+      "user_id": "demo_user",
+      "candidate_id": "cap-theorem-deep-dive",
+      "action": "started",
+      "conversation_turns": 1,
+      "created_at": "2026-01-21T21:30:38.593873"
+    },
+    {
+      "id": "b750d7ca-1103-41e3-970a-81d9bf1a465d",
+      "user_id": "demo_user",
+      "candidate_id": "startup-funding-news",
+      "action": "started",
+      "conversation_turns": 2,
+      "created_at": "2026-01-21T21:31:14.138016"
+    },
+    {
+      "id": "3df62e95-6acc-4590-9338-78756c87aae5",
+      "user_id": "demo_user",
+      "candidate_id": "vector-database-comparison",
+      "action": "started",
+      "conversation_turns": 3,
+      "created_at": "2026-01-21T21:49:42.086475"
+    },
+    {
+      "id": "d0904566-95b4-437c-b23d-745aa0caeccf",
+      "user_id": "demo_user",
+      "candidate_id": "anthropic-claude-update",
+      "action": "started",
+      "conversation_turns": 1,
+      "created_at": "2026-01-21T21:52:44.539226"
+    },
+    {
+      "id": "b787626b-7628-41f5-b1b5-578db7a920ec",
+      "user_id": "demo_user",
+      "candidate_id": "openai-gpt5-announcement",
+      "action": "started",
+      "conversation_turns": 1,
+      "created_at": "2026-01-21T21:53:34.827276"
+    },
+    {
+      "id": "41a9c10f-51b2-4d4c-90f2-1d83650b6a76",
+      "user_id": "demo_user",
+      "candidate_id": "typescript-5-features",
+      "action": "started",
+      "conversation_turns": 3,
+      "created_at": "2026-01-21T21:58:17.103649"
+    }
+  ]
+}

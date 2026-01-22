@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proactive AI Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Marked.js for markdown rendering (specific version for stability) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar with suggestion cards -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>Suggestions</h2>
+                <button class="toggle-sidebar" id="toggle-sidebar">
+                    <span class="icon">&#9776;</span>
+                </button>
+            </div>
+            <div class="search-container" id="search-container">
+                <form class="search-form" id="search-form">
+                    <input
+                        type="text"
+                        id="search-input"
+                        placeholder="Search topics..."
+                        autocomplete="off"
+                    >
+                    <button type="submit" id="search-btn" aria-label="Search">
+                        <span class="search-icon">&#128269;</span>
+                    </button>
+                </form>
+                <div class="search-results" id="search-results">
+                    <!-- Search results populated dynamically -->
+                </div>
+            </div>
+            <div class="suggestion-cards" id="suggestion-cards">
+                <!-- Cards will be populated dynamically -->
+            </div>
+        </aside>
+
+        <!-- Main chat area -->
+        <main class="chat-container">
+            <header class="chat-header">
+                <div class="header-content">
+                    <div class="notification-badge" id="notification-badge">
+                        <span class="badge-dot"></span>
+                    </div>
+                    <h1>Proactive AI Assistant</h1>
+                </div>
+                <button class="settings-btn" id="settings-btn">
+                    <span>Settings</span>
+                </button>
+            </header>
+
+            <div class="chat-messages" id="chat-messages">
+                <!-- Welcome message -->
+                <div class="message assistant">
+                    <div class="message-avatar">AI</div>
+                    <div class="message-content">
+                        <p>Hello! I'm your proactive AI assistant. I'll suggest relevant topics based on your interests. Check the sidebar for suggestions, or feel free to ask me anything!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <div class="quick-actions" id="quick-actions">
+                    <!-- Quick action buttons populated dynamically -->
+                </div>
+                <form class="chat-form" id="chat-form">
+                    <input
+                        type="text"
+                        id="message-input"
+                        placeholder="Type a message..."
+                        autocomplete="off"
+                    >
+                    <button type="submit" id="send-btn">Send</button>
+                </form>
+            </div>
+        </main>
+
+        <!-- Settings Modal -->
+        <div class="modal" id="settings-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Proactive AI Settings</h2>
+                    <button class="close-modal" id="close-settings">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <section class="settings-section">
+                        <h3>Frequency</h3>
+                        <p>How often should I reach out?</p>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="frequency" value="rarely">
+                                Rarely (1-2x per week)
+                            </label>
+                            <label>
+                                <input type="radio" name="frequency" value="sometimes" checked>
+                                Sometimes (1x per day)
+                            </label>
+                            <label>
+                                <input type="radio" name="frequency" value="often">
+                                Often (multiple times per day)
+                            </label>
+                        </div>
+                    </section>
+
+                    <section class="settings-section">
+                        <h3>Topics</h3>
+                        <p>What should I proactively suggest?</p>
+                        <div class="checkbox-group" id="topics-checkboxes">
+                            <!-- Topics will be populated dynamically -->
+                        </div>
+                    </section>
+
+                    <section class="settings-section">
+                        <h3>Focus Mode</h3>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="pause-meetings" checked>
+                                Pause during calendar events
+                            </label>
+                            <label>
+                                <input type="checkbox" id="detect-deep-work" checked>
+                                Detect deep work and wait
+                            </label>
+                            <label>
+                                <input type="checkbox" id="queue-only">
+                                Never interrupt (queue only)
+                            </label>
+                        </div>
+                    </section>
+
+                    <section class="settings-section">
+                        <h3>Snooze Notifications</h3>
+                        <p id="snooze-status">Notifications are active</p>
+                        <div class="snooze-buttons">
+                            <button class="snooze-btn" data-hours="1">1 hour</button>
+                            <button class="snooze-btn" data-hours="4">4 hours</button>
+                            <button class="snooze-btn" data-hours="24">1 day</button>
+                            <button class="snooze-btn" data-hours="168">1 week</button>
+                        </div>
+                        <button class="btn-secondary btn-small" id="cancel-snooze" style="display: none;">Resume Notifications</button>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-secondary" id="cancel-settings">Cancel</button>
+                    <button class="btn-primary" id="save-settings">Save Settings</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transparency Panel Modal -->
+        <div class="modal" id="transparency-modal">
+            <div class="modal-content transparency-content">
+                <div class="modal-header">
+                    <h2>Why this suggestion?</h2>
+                    <button class="close-modal" id="close-transparency">&times;</button>
+                </div>
+                <div class="modal-body" id="transparency-body">
+                    <!-- Content populated dynamically -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-secondary" id="dont-show-like-this">Don't show topics like this</button>
+                    <button class="btn-primary" id="close-transparency-btn">Got it</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Onboarding Modal -->
+        <div class="modal" id="onboarding-modal">
+            <div class="modal-content onboarding-content">
+                <!-- Step 1: Welcome -->
+                <div class="onboarding-step" id="onboarding-step-1">
+                    <div class="onboarding-illustration">
+                        <div class="illustration-circle">
+                            <span class="illustration-icon">AI</span>
+                        </div>
+                    </div>
+                    <h2>Welcome to Proactive AI</h2>
+                    <p class="onboarding-description">
+                        I'm an AI assistant that doesn't wait for you to ask. I'll proactively suggest relevant topics, surface important updates, and start meaningful conversations.
+                    </p>
+                    <div class="onboarding-features">
+                        <div class="feature-item">
+                            <span class="feature-icon">&#128218;</span>
+                            <span>Personalized learning suggestions</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">&#128276;</span>
+                            <span>Timely work notifications</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">&#128200;</span>
+                            <span>Relevant industry news</span>
+                        </div>
+                    </div>
+                    <button class="btn-primary btn-full" id="onboarding-next-1">Get Started</button>
+                </div>
+
+                <!-- Step 2: Select Interests -->
+                <div class="onboarding-step hidden" id="onboarding-step-2">
+                    <h2>What interests you?</h2>
+                    <p class="onboarding-description">
+                        Select topics you'd like me to proactively suggest. You can change these anytime in settings.
+                    </p>
+                    <div class="interest-grid" id="interest-grid">
+                        <button class="interest-tag" data-interest="distributed-systems">Distributed Systems</button>
+                        <button class="interest-tag" data-interest="kafka">Apache Kafka</button>
+                        <button class="interest-tag" data-interest="kubernetes">Kubernetes</button>
+                        <button class="interest-tag" data-interest="ml-infrastructure">ML Infrastructure</button>
+                        <button class="interest-tag" data-interest="rust">Rust</button>
+                        <button class="interest-tag" data-interest="python">Python</button>
+                        <button class="interest-tag" data-interest="typescript">TypeScript</button>
+                        <button class="interest-tag" data-interest="databases">Databases</button>
+                        <button class="interest-tag" data-interest="cloud">Cloud (AWS/GCP/Azure)</button>
+                        <button class="interest-tag" data-interest="security">Security</button>
+                        <button class="interest-tag" data-interest="devops">DevOps</button>
+                        <button class="interest-tag" data-interest="ai">AI/LLMs</button>
+                    </div>
+                    <p class="interest-hint" id="interest-hint">Select at least 2 topics</p>
+                    <div class="onboarding-nav">
+                        <button class="btn-secondary" id="onboarding-back-2">Back</button>
+                        <button class="btn-primary" id="onboarding-next-2" disabled>Continue</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Set Frequency -->
+                <div class="onboarding-step hidden" id="onboarding-step-3">
+                    <h2>How often should I reach out?</h2>
+                    <p class="onboarding-description">
+                        I'll respect your preference and only suggest things at the right moments.
+                    </p>
+                    <div class="frequency-options">
+                        <label class="frequency-option">
+                            <input type="radio" name="onboarding-frequency" value="rarely">
+                            <div class="frequency-card">
+                                <span class="frequency-icon">&#128173;</span>
+                                <span class="frequency-label">Rarely</span>
+                                <span class="frequency-desc">1-2 times per week</span>
+                            </div>
+                        </label>
+                        <label class="frequency-option">
+                            <input type="radio" name="onboarding-frequency" value="sometimes" checked>
+                            <div class="frequency-card selected">
+                                <span class="frequency-icon">&#9989;</span>
+                                <span class="frequency-label">Sometimes</span>
+                                <span class="frequency-desc">Once per day</span>
+                            </div>
+                        </label>
+                        <label class="frequency-option">
+                            <input type="radio" name="onboarding-frequency" value="often">
+                            <div class="frequency-card">
+                                <span class="frequency-icon">&#128172;</span>
+                                <span class="frequency-label">Often</span>
+                                <span class="frequency-desc">Multiple times per day</span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="onboarding-nav">
+                        <button class="btn-secondary" id="onboarding-back-3">Back</button>
+                        <button class="btn-primary" id="onboarding-finish">Start Using</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
