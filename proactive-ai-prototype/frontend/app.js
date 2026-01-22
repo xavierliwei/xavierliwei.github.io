@@ -18,6 +18,49 @@ let state = {
     selectedInterests: []
 };
 
+// Storage keys
+const STORAGE_KEYS = {
+    MESSAGES: 'proactive_ai_messages',
+    ONBOARDING: 'proactive_ai_onboarding_complete',
+    SETTINGS: 'proactive_ai_settings',
+    SNOOZED: 'proactive_ai_snoozed_until',
+    THEME: 'proactive_ai_theme'
+};
+
+// Validation constants
+const VALIDATION = {
+    MAX_MESSAGE_LENGTH: 4000,
+    MAX_SEARCH_LENGTH: 200,
+    MIN_MESSAGE_LENGTH: 1
+};
+
+// Input validation and sanitization utilities
+function sanitizeInput(input) {
+    if (typeof input !== 'string') return '';
+    // Remove null bytes and control characters (except newlines and tabs)
+    return input.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '').trim();
+}
+
+function validateMessageLength(message) {
+    if (!message || message.length < VALIDATION.MIN_MESSAGE_LENGTH) {
+        return { valid: false, error: 'Message cannot be empty' };
+    }
+    if (message.length > VALIDATION.MAX_MESSAGE_LENGTH) {
+        return { valid: false, error: `Message too long (max ${VALIDATION.MAX_MESSAGE_LENGTH} characters)` };
+    }
+    return { valid: true };
+}
+
+function validateSearchQuery(query) {
+    if (!query || query.trim().length === 0) {
+        return { valid: false, error: 'Search query cannot be empty' };
+    }
+    if (query.length > VALIDATION.MAX_SEARCH_LENGTH) {
+        return { valid: false, error: `Search query too long (max ${VALIDATION.MAX_SEARCH_LENGTH} characters)` };
+    }
+    return { valid: true };
+}
+
 // DOM Elements
 const chatMessages = document.getElementById('chat-messages');
 const chatForm = document.getElementById('chat-form');
@@ -38,13 +81,44 @@ const searchResults = document.getElementById('search-results');
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
+    initializeTheme();
     initializeApp();
     setupEventListeners();
 });
 
+// Theme management
+function initializeTheme() {
+    const savedTheme = localStorage.getItem(STORAGE_KEYS.THEME) || 'system';
+    applyTheme(savedTheme);
+    updateThemeButtons(savedTheme);
+}
+
+function applyTheme(theme) {
+    const root = document.documentElement;
+
+    if (theme === 'system') {
+        // Remove explicit theme to let CSS media query handle it
+        root.removeAttribute('data-theme');
+    } else {
+        root.setAttribute('data-theme', theme);
+    }
+}
+
+function updateThemeButtons(activeTheme) {
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.theme === activeTheme);
+    });
+}
+
+function setTheme(theme) {
+    localStorage.setItem(STORAGE_KEYS.THEME, theme);
+    applyTheme(theme);
+    updateThemeButtons(theme);
+}
+
 async function initializeApp() {
     // Check if user has completed onboarding
-    const onboardingComplete = localStorage.getItem('proactive_ai_onboarding_complete');
+    const onboardingComplete = localStorage.getItem(STORAGE_KEYS.ONBOARDING);
     state.onboardingComplete = onboardingComplete === 'true';
 
     if (!state.onboardingComplete) {
@@ -54,6 +128,12 @@ async function initializeApp() {
 
     // Load saved settings
     loadSavedSettings();
+
+    // Load saved messages
+    loadSavedMessages();
+
+    // Show skeleton loading while fetching
+    showSuggestionSkeletons();
 
     try {
         await fetchSuggestions();
@@ -68,7 +148,7 @@ async function initializeApp() {
 }
 
 function loadSavedSettings() {
-    const savedSettings = localStorage.getItem('proactive_ai_settings');
+    const savedSettings = localStorage.getItem(STORAGE_KEYS.SETTINGS);
     if (savedSettings) {
         try {
             const parsed = JSON.parse(savedSettings);
@@ -77,6 +157,82 @@ function loadSavedSettings() {
             console.error('Failed to parse saved settings:', e);
         }
     }
+}
+
+function loadSavedMessages() {
+    const savedMessages = localStorage.getItem(STORAGE_KEYS.MESSAGES);
+    if (savedMessages) {
+        try {
+            const parsed = JSON.parse(savedMessages);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+                state.messages = parsed;
+                // Render saved messages (skip the welcome message which is in HTML)
+                state.messages.forEach(msg => {
+                    renderSavedMessage(msg.role, msg.content, msg.metadata);
+                });
+            }
+        } catch (e) {
+            console.error('Failed to parse saved messages:', e);
+        }
+    }
+}
+
+function saveMessages() {
+    try {
+        // Save only the last 50 messages to avoid localStorage limits
+        const messagesToSave = state.messages.slice(-50);
+        localStorage.setItem(STORAGE_KEYS.MESSAGES, JSON.stringify(messagesToSave));
+    } catch (e) {
+        console.error('Failed to save messages:', e);
+    }
+}
+
+function renderSavedMessage(role, content, metadata = null) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${role}`;
+
+    const avatarDiv = document.createElement('div');
+    avatarDiv.className = 'message-avatar';
+    avatarDiv.textContent = role === 'assistant' ? 'AI' : 'You';
+
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'message-content';
+
+    // Render markdown for assistant messages, plain text for user
+    if (role === 'assistant') {
+        const markdownDiv = document.createElement('div');
+        markdownDiv.className = 'markdown-content';
+        markdownDiv.innerHTML = renderMarkdown(content);
+        contentDiv.appendChild(markdownDiv);
+    } else {
+        const textP = document.createElement('p');
+        textP.textContent = content;
+        contentDiv.appendChild(textP);
+    }
+
+    if (metadata && metadata.basedOn) {
+        const basedOnDiv = document.createElement('div');
+        basedOnDiv.className = 'based-on';
+        basedOnDiv.innerHTML = `Based on: ${metadata.basedOn}`;
+        contentDiv.appendChild(basedOnDiv);
+    }
+
+    messageDiv.appendChild(avatarDiv);
+    messageDiv.appendChild(contentDiv);
+
+    chatMessages.appendChild(messageDiv);
+}
+
+function clearChatHistory() {
+    state.messages = [];
+    localStorage.removeItem(STORAGE_KEYS.MESSAGES);
+    // Clear all messages except the welcome message
+    const messages = chatMessages.querySelectorAll('.message');
+    messages.forEach((msg, index) => {
+        if (index > 0) { // Keep first (welcome) message
+            msg.remove();
+        }
+    });
 }
 
 function showOnboarding() {
@@ -293,9 +449,24 @@ function setupEventListeners() {
     // Chat form submission
     chatForm.addEventListener('submit', handleSendMessage);
 
+    // Search form submission
+    searchForm.addEventListener('submit', handleSearch);
+
     // Toggle sidebar
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
     toggleSidebar.addEventListener('click', () => {
-        sidebar.classList.toggle('collapsed');
+        if (window.innerWidth <= 768) {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('active');
+        } else {
+            sidebar.classList.toggle('collapsed');
+        }
+    });
+
+    // Close sidebar on overlay click (mobile)
+    sidebarOverlay.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+        sidebarOverlay.classList.remove('active');
     });
 
     // Settings modal
@@ -318,6 +489,21 @@ function setupEventListeners() {
     document.getElementById('close-transparency-btn').addEventListener('click', () => closeModal(transparencyModal));
     document.getElementById('dont-show-like-this').addEventListener('click', handleDontShowLikeThis);
 
+    // Clear chat history
+    document.getElementById('clear-chat-history').addEventListener('click', () => {
+        if (confirm('Are you sure you want to clear your chat history? This cannot be undone.')) {
+            clearChatHistory();
+            closeModal(settingsModal);
+        }
+    });
+
+    // Theme toggle buttons
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            setTheme(btn.dataset.theme);
+        });
+    });
+
     // Close modals on outside click
     window.addEventListener('click', (e) => {
         if (e.target.classList.contains('modal')) {
@@ -325,10 +511,178 @@ function setupEventListeners() {
         }
     });
 
-    // Mobile sidebar
-    if (window.innerWidth <= 768) {
-        sidebar.classList.add('collapsed');
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            sidebar.classList.remove('open');
+            document.getElementById('sidebar-overlay').classList.remove('active');
+        }
+    });
+
+    // Network status handlers
+    window.addEventListener('online', () => {
+        showNotification('Back online!', 'success');
+        // Try to refresh suggestions
+        fetchSuggestions().then(() => {
+            renderSuggestionCards();
+            updateNotificationBadge();
+        }).catch(() => {});
+    });
+
+    window.addEventListener('offline', () => {
+        showNotification('You are offline. Some features may not work.', 'warning');
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', handleKeyboardShortcuts);
+}
+
+function handleKeyboardShortcuts(e) {
+    // Don't trigger shortcuts when typing in input fields
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        // Escape to blur input
+        if (e.key === 'Escape') {
+            e.target.blur();
+        }
+        return;
     }
+
+    // Check for modifier keys
+    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+    const cmdOrCtrl = isMac ? e.metaKey : e.ctrlKey;
+
+    // Cmd/Ctrl + K: Focus search
+    if (cmdOrCtrl && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+        // Open sidebar on mobile if closed
+        if (window.innerWidth <= 768 && !sidebar.classList.contains('open')) {
+            sidebar.classList.add('open');
+            document.getElementById('sidebar-overlay').classList.add('active');
+        }
+        return;
+    }
+
+    // Cmd/Ctrl + /: Focus message input
+    if (cmdOrCtrl && e.key === '/') {
+        e.preventDefault();
+        messageInput.focus();
+        return;
+    }
+
+    // Cmd/Ctrl + ,: Open settings
+    if (cmdOrCtrl && e.key === ',') {
+        e.preventDefault();
+        updateSnoozeStatus();
+        openModal(settingsModal);
+        return;
+    }
+
+    // Escape: Close modals
+    if (e.key === 'Escape') {
+        const activeModal = document.querySelector('.modal.active');
+        if (activeModal) {
+            closeModal(activeModal);
+        }
+        // Close sidebar on mobile
+        if (window.innerWidth <= 768) {
+            sidebar.classList.remove('open');
+            document.getElementById('sidebar-overlay').classList.remove('active');
+        }
+        return;
+    }
+
+    // S: Toggle sidebar (when not in input)
+    if (e.key === 's' && !cmdOrCtrl && !e.shiftKey) {
+        e.preventDefault();
+        if (window.innerWidth <= 768) {
+            sidebar.classList.toggle('open');
+            document.getElementById('sidebar-overlay').classList.toggle('active');
+        } else {
+            sidebar.classList.toggle('collapsed');
+        }
+        return;
+    }
+
+    // ?: Show keyboard shortcuts help
+    if (e.key === '?' && e.shiftKey) {
+        e.preventDefault();
+        showKeyboardShortcutsHelp();
+        return;
+    }
+
+    // Number keys 1-5: Start conversation with corresponding suggestion
+    if (/^[1-5]$/.test(e.key) && !cmdOrCtrl) {
+        const index = parseInt(e.key) - 1;
+        if (state.suggestions[index]) {
+            e.preventDefault();
+            startConversation(state.suggestions[index]);
+        }
+        return;
+    }
+}
+
+function showKeyboardShortcutsHelp() {
+    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+    const mod = isMac ? '⌘' : 'Ctrl';
+
+    // Remove existing help modal if present
+    const existing = document.getElementById('shortcuts-modal');
+    if (existing) existing.remove();
+
+    const modal = document.createElement('div');
+    modal.className = 'modal active';
+    modal.id = 'shortcuts-modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2>Keyboard Shortcuts</h2>
+                <button class="close-modal" onclick="this.closest('.modal').remove()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="shortcuts-list">
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">${mod} + K</span>
+                        <span class="shortcut-desc">Focus search</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">${mod} + /</span>
+                        <span class="shortcut-desc">Focus message input</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">${mod} + ,</span>
+                        <span class="shortcut-desc">Open settings</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">S</span>
+                        <span class="shortcut-desc">Toggle sidebar</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">1-5</span>
+                        <span class="shortcut-desc">Start suggestion #1-5</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Esc</span>
+                        <span class="shortcut-desc">Close modal / blur input</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">?</span>
+                        <span class="shortcut-desc">Show this help</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" onclick="this.closest('.modal').remove()">Got it</button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Close on outside click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove();
+    });
 }
 
 async function handleSnooze(hours) {
@@ -417,8 +771,15 @@ function formatTimeLeft(until) {
 
 async function handleSendMessage(e) {
     e.preventDefault();
-    const message = messageInput.value.trim();
-    if (!message) return;
+    const rawMessage = messageInput.value;
+    const message = sanitizeInput(rawMessage);
+
+    // Validate message
+    const validation = validateMessageLength(message);
+    if (!validation.valid) {
+        showNotification(validation.error, 'error');
+        return;
+    }
 
     // Add user message
     addMessage('user', message);
@@ -429,13 +790,21 @@ async function handleSendMessage(e) {
     try {
         await handleStreamingResponse(message);
     } catch (error) {
+        console.error('Streaming failed:', error);
         // Fall back to non-streaming API
         try {
             await handleRegularResponse(message);
         } catch (fallbackError) {
-            // Mock response for demo
-            const mockResponse = generateMockResponse(message);
-            addMessage('assistant', mockResponse);
+            console.error('Regular API also failed:', fallbackError);
+            // Check if it's a network error
+            if (!navigator.onLine) {
+                showNotification('No internet connection. Please check your network.', 'error');
+                addMessage('assistant', "I'm having trouble connecting to the server. Please check your internet connection and try again.");
+            } else {
+                // Mock response for demo
+                const mockResponse = generateMockResponse(message);
+                addMessage('assistant', mockResponse);
+            }
         }
     }
 
@@ -500,6 +869,7 @@ async function handleStreamingResponse(message) {
     // Finalize the message
     finalizeStreamingMessage(messageDiv, fullContent);
     state.messages.push({ role: 'assistant', content: fullContent });
+    saveMessages();
 }
 
 async function handleRegularResponse(message) {
@@ -627,6 +997,7 @@ function addMessage(role, content, metadata = null) {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
     state.messages.push({ role, content, metadata });
+    saveMessages();
 }
 
 function renderMarkdown(content) {
@@ -767,15 +1138,48 @@ function hideTypingIndicator() {
 function renderSuggestionCards() {
     suggestionCards.innerHTML = '';
 
+    if (state.suggestions.length === 0) {
+        suggestionCards.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon">&#128161;</div>
+                <div class="empty-state-title">No suggestions yet</div>
+                <div class="empty-state-description">Check back later for personalized recommendations based on your interests.</div>
+            </div>
+        `;
+        return;
+    }
+
     state.suggestions.forEach(suggestion => {
         const card = createSuggestionCard(suggestion);
         suggestionCards.appendChild(card);
     });
 }
 
+function showSuggestionSkeletons(count = 3) {
+    suggestionCards.innerHTML = '';
+    for (let i = 0; i < count; i++) {
+        const skeleton = document.createElement('div');
+        skeleton.className = 'skeleton-card';
+        skeleton.innerHTML = `
+            <div class="skeleton skeleton-icon"></div>
+            <div class="skeleton skeleton-category"></div>
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-preview"></div>
+            <div class="skeleton skeleton-preview-short"></div>
+            <div class="skeleton-meta">
+                <div class="skeleton skeleton-meta-text"></div>
+                <div class="skeleton skeleton-bar"></div>
+                <div class="skeleton skeleton-meta-percent"></div>
+            </div>
+        `;
+        suggestionCards.appendChild(skeleton);
+    }
+}
+
 function createSuggestionCard(suggestion) {
     const card = document.createElement('div');
     card.className = 'suggestion-card';
+    card.setAttribute('data-title', suggestion.title);
     card.innerHTML = `
         <div class="card-icon">${suggestion.icon}</div>
         <div class="card-category">${suggestion.category}</div>
@@ -814,21 +1218,86 @@ function createSuggestionCard(suggestion) {
     return card;
 }
 
-function startConversation(suggestion) {
+async function startConversation(suggestion) {
     state.currentSuggestion = suggestion;
 
-    // Generate proactive message
-    const proactiveMessage = `I noticed you've been ${getInterestDescription(suggestion)}. ${suggestion.title} It connects well with what you're learning.`;
-
-    addMessage('assistant', proactiveMessage, { basedOn: suggestion.preview });
-
-    // Remove from suggestions
+    // Remove from suggestions immediately
     state.suggestions = state.suggestions.filter(s => s.id !== suggestion.id);
     renderSuggestionCards();
     updateNotificationBadge();
 
     // Record feedback
     recordFeedback(suggestion.id, 'started');
+
+    // Generate proactive intro using the model
+    try {
+        await generateProactiveIntro(suggestion);
+    } catch (error) {
+        // Fallback to static message if API fails
+        const fallbackMessage = `I noticed you've been ${getInterestDescription(suggestion)}. ${suggestion.title} It connects well with what you're learning.`;
+        addMessage('assistant', fallbackMessage, { basedOn: suggestion.preview });
+    }
+}
+
+async function generateProactiveIntro(suggestion) {
+    // Create message element for streaming
+    const messageDiv = createStreamingMessage();
+
+    const response = await fetch(`${API_BASE_URL}/api/chat/stream`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            user_id: 'demo_user',
+            message: '__PROACTIVE_INTRO__',  // Special marker for proactive intro
+            context: {
+                type: 'proactive_intro',
+                suggestion_id: suggestion.id,
+                title: suggestion.content?.title || suggestion.title,
+                summary: suggestion.content?.summary || suggestion.preview,
+                category: suggestion.category,
+                signals: suggestion.signals
+            }
+        })
+    });
+
+    if (!response.ok) throw new Error('Stream request failed');
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let fullContent = '';
+    let streamComplete = false;
+
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        const lines = chunk.split('\n');
+
+        for (const line of lines) {
+            if (line.startsWith('data:')) {
+                const data = line.startsWith('data: ') ? line.slice(6) : line.slice(5);
+
+                if (data === '[DONE]') {
+                    streamComplete = true;
+                    break;
+                } else if (data.startsWith('[ERROR:')) {
+                    throw new Error(data);
+                } else {
+                    const decodedData = data.replace(/\\n/g, '\n');
+                    fullContent += decodedData;
+                    updateStreamingMessage(messageDiv, fullContent);
+                }
+            }
+        }
+
+        if (streamComplete) break;
+    }
+
+    // Finalize the message
+    finalizeStreamingMessage(messageDiv, fullContent);
+    state.messages.push({ role: 'assistant', content: fullContent });
+    saveMessages();
 }
 
 function getInterestDescription(suggestion) {
@@ -930,6 +1399,116 @@ async function recordFeedback(suggestionId, action) {
         });
     } catch (error) {
         console.error('Failed to record feedback:', error);
+    }
+}
+
+// Notification system for user feedback
+function showNotification(message, type = 'info') {
+    // Remove existing notifications
+    const existing = document.querySelector('.notification-toast');
+    if (existing) existing.remove();
+
+    const notification = document.createElement('div');
+    notification.className = `notification-toast notification-${type}`;
+    notification.textContent = message;
+
+    document.body.appendChild(notification);
+
+    // Trigger animation
+    setTimeout(() => notification.classList.add('show'), 10);
+
+    // Auto-dismiss after 3 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// Search functionality
+async function handleSearch(e) {
+    e.preventDefault();
+    const rawQuery = searchInput.value;
+    const query = sanitizeInput(rawQuery);
+
+    const validation = validateSearchQuery(query);
+    if (!validation.valid) {
+        showNotification(validation.error, 'error');
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/search`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                query: query,
+                user_id: 'demo_user',
+                limit: 5
+            })
+        });
+
+        if (!response.ok) throw new Error('Search failed');
+        const data = await response.json();
+        renderSearchResults(data);
+    } catch (error) {
+        console.error('Search error:', error);
+        showNotification('Search failed. Please try again.', 'error');
+    }
+}
+
+function renderSearchResults(data) {
+    const results = data.results || [];
+    const expandedTerms = data.expanded_terms || [];
+
+    if (results.length === 0) {
+        searchResults.innerHTML = `
+            <div class="search-results-header">
+                <span class="search-results-title">No results found</span>
+                <button class="search-clear-btn" onclick="clearSearchResults()">Clear</button>
+            </div>
+            <div class="search-no-results">Try different keywords or check your spelling.</div>
+        `;
+    } else {
+        searchResults.innerHTML = `
+            <div class="search-results-header">
+                <span class="search-results-title">${results.length} result${results.length !== 1 ? 's' : ''}</span>
+                <button class="search-clear-btn" onclick="clearSearchResults()">Clear</button>
+            </div>
+            ${expandedTerms.length > 0 ? `
+                <div class="search-expanded-terms">
+                    ${expandedTerms.map(term => `<span class="expanded-term">${term}</span>`).join('')}
+                </div>
+            ` : ''}
+            ${results.map(result => `
+                <div class="search-result-card" onclick="startConversationFromSearch('${result.candidate.id}')">
+                    <div class="search-result-title">${escapeHtml(result.candidate.title)}</div>
+                    <div class="search-result-summary">${escapeHtml(result.candidate.summary)}</div>
+                    <div class="search-result-score">Relevance: ${Math.round(result.score * 100)}%</div>
+                </div>
+            `).join('')}
+        `;
+    }
+
+    searchResults.classList.add('active');
+}
+
+function clearSearchResults() {
+    searchResults.innerHTML = '';
+    searchResults.classList.remove('active');
+    searchInput.value = '';
+}
+
+function startConversationFromSearch(candidateId) {
+    // Find the candidate in suggestions or fetch it
+    const suggestion = state.suggestions.find(s => s.id === candidateId);
+    if (suggestion) {
+        startConversation(suggestion);
+        clearSearchResults();
+        // Close sidebar on mobile
+        if (window.innerWidth <= 768) {
+            sidebar.classList.remove('open');
+            document.getElementById('sidebar-overlay').classList.remove('active');
+        }
     }
 }
 

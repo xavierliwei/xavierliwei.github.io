@@ -10,6 +10,9 @@
 </head>
 <body>
     <div class="app-container">
+        <!-- Mobile sidebar overlay -->
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
         <!-- Sidebar with suggestion cards -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -115,6 +118,25 @@
                     </section>
 
                     <section class="settings-section">
+                        <h3>Appearance</h3>
+                        <p>Choose your preferred theme</p>
+                        <div class="theme-toggle">
+                            <button class="theme-btn" data-theme="light" title="Light mode">
+                                <span class="theme-icon">&#9728;</span>
+                                <span>Light</span>
+                            </button>
+                            <button class="theme-btn" data-theme="dark" title="Dark mode">
+                                <span class="theme-icon">&#9790;</span>
+                                <span>Dark</span>
+                            </button>
+                            <button class="theme-btn active" data-theme="system" title="System preference">
+                                <span class="theme-icon">&#128187;</span>
+                                <span>System</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <section class="settings-section">
                         <h3>Focus Mode</h3>
                         <div class="checkbox-group">
                             <label>
@@ -142,6 +164,12 @@
                             <button class="snooze-btn" data-hours="168">1 week</button>
                         </div>
                         <button class="btn-secondary btn-small" id="cancel-snooze" style="display: none;">Resume Notifications</button>
+                    </section>
+
+                    <section class="settings-section">
+                        <h3>Chat History</h3>
+                        <p>Clear your conversation history to start fresh.</p>
+                        <button class="btn-secondary btn-small btn-danger" id="clear-chat-history">Clear Chat History</button>
                     </section>
                 </div>
                 <div class="modal-footer">

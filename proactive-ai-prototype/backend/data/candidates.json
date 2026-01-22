@@ -32,7 +32,7 @@
         "partition-tolerance"
       ],
       "source": "martin-kleppmann",
-      "engagement_score": 5.8,
+      "engagement_score": 7.8,
       "created_at": "2026-01-08T14:30:00Z",
       "content_type": "article",
       "difficulty": "advanced"
@@ -156,7 +156,7 @@
         "infrastructure"
       ],
       "source": "kubernetes-blog",
-      "engagement_score": 4.1,
+      "engagement_score": 3.8,
       "created_at": "2026-01-09T13:00:00Z",
       "content_type": "guide",
       "difficulty": "intermediate"
@@ -425,7 +425,7 @@
         "monitoring"
       ],
       "source": "aws-cost-explorer",
-      "engagement_score": 4.5,
+      "engagement_score": 5.5,
       "created_at": "2026-01-15T07:30:00Z",
       "content_type": "notification",
       "priority": "high"
@@ -465,6 +465,256 @@
       "created_at": "2026-01-08T09:00:00Z",
       "content_type": "news",
       "region": "global"
+    },
+    {
+      "id": "golang-generics-patterns",
+      "title": "Go Generics: Patterns and Best Practices",
+      "summary": "Explore practical patterns for using generics in Go: type constraints, generic data structures, and when to avoid generics.",
+      "category": "learning",
+      "keywords": [
+        "golang",
+        "go",
+        "generics",
+        "programming",
+        "type-system"
+      ],
+      "source": "go-blog",
+      "engagement_score": 4.5,
+      "created_at": "2026-01-16T10:00:00Z",
+      "content_type": "tutorial",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "event-driven-architecture",
+      "title": "Event-Driven Architecture Patterns",
+      "summary": "Master event sourcing, CQRS, and saga patterns for building scalable, loosely-coupled microservices architectures.",
+      "category": "learning",
+      "keywords": [
+        "event-sourcing",
+        "cqrs",
+        "microservices",
+        "architecture",
+        "distributed-systems"
+      ],
+      "source": "martin-fowler",
+      "engagement_score": 5.2,
+      "created_at": "2026-01-14T09:00:00Z",
+      "content_type": "article",
+      "difficulty": "advanced"
+    },
+    {
+      "id": "python-asyncio-deep-dive",
+      "title": "Python AsyncIO: Beyond the Basics",
+      "summary": "Advanced patterns for Python async programming: custom event loops, connection pooling, and debugging async code.",
+      "category": "learning",
+      "keywords": [
+        "python",
+        "asyncio",
+        "concurrency",
+        "async",
+        "programming"
+      ],
+      "source": "realpython",
+      "engagement_score": 4.8,
+      "created_at": "2026-01-15T11:00:00Z",
+      "content_type": "tutorial",
+      "difficulty": "advanced"
+    },
+    {
+      "id": "llm-fine-tuning-guide",
+      "title": "Fine-Tuning LLMs: A Practical Guide",
+      "summary": "Step-by-step guide to fine-tuning language models: dataset preparation, training strategies, and evaluation metrics.",
+      "category": "learning",
+      "keywords": [
+        "llm",
+        "fine-tuning",
+        "machine-learning",
+        "ai",
+        "nlp"
+      ],
+      "source": "huggingface",
+      "engagement_score": 5.4,
+      "created_at": "2026-01-17T08:00:00Z",
+      "content_type": "guide",
+      "difficulty": "advanced"
+    },
+    {
+      "id": "team-retro-scheduled",
+      "title": "Sprint Retrospective Tomorrow",
+      "summary": "Don't forget: Sprint retro scheduled for tomorrow at 2pm. The team wants to discuss deployment bottlenecks.",
+      "category": "work",
+      "keywords": [
+        "retro",
+        "sprint",
+        "team",
+        "meeting",
+        "agile"
+      ],
+      "source": "calendar",
+      "engagement_score": 3.2,
+      "created_at": "2026-01-18T07:00:00Z",
+      "content_type": "notification",
+      "priority": "medium"
+    },
+    {
+      "id": "opentelemetry-adoption",
+      "title": "OpenTelemetry Adoption Guide",
+      "summary": "Migrate from vendor-specific APM to OpenTelemetry: instrumentation strategies, collector setup, and backend integration.",
+      "category": "learning",
+      "keywords": [
+        "opentelemetry",
+        "observability",
+        "monitoring",
+        "tracing",
+        "devops"
+      ],
+      "source": "opentelemetry-docs",
+      "engagement_score": 4.3,
+      "created_at": "2026-01-13T14:00:00Z",
+      "content_type": "guide",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "docker-security-best-practices",
+      "title": "Docker Security Best Practices",
+      "summary": "Secure your container deployments: image scanning, rootless containers, secrets management, and runtime security.",
+      "category": "learning",
+      "keywords": [
+        "docker",
+        "security",
+        "containers",
+        "devops",
+        "devsecops"
+      ],
+      "source": "docker-docs",
+      "engagement_score": 4.1,
+      "created_at": "2026-01-11T10:00:00Z",
+      "content_type": "guide",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "standing-desk-reminder",
+      "title": "Time for a Standing Break",
+      "summary": "You've been sitting for 2 hours. Research shows standing for 15 minutes every 2 hours can reduce back pain by 54%.",
+      "category": "health",
+      "keywords": [
+        "ergonomics",
+        "health",
+        "posture",
+        "wellness",
+        "productivity"
+      ],
+      "source": "health-app",
+      "engagement_score": 2.8,
+      "created_at": "2026-01-18T14:00:00Z",
+      "content_type": "reminder",
+      "priority": "low"
+    },
+    {
+      "id": "api-versioning-strategies",
+      "title": "API Versioning Strategies Compared",
+      "summary": "URL path vs header vs query parameter versioning: pros, cons, and when to use each approach for REST APIs.",
+      "category": "learning",
+      "keywords": [
+        "api",
+        "rest",
+        "versioning",
+        "backend",
+        "design"
+      ],
+      "source": "stripe-engineering",
+      "engagement_score": 4.0,
+      "created_at": "2026-01-09T15:00:00Z",
+      "content_type": "article",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "terraform-modules-patterns",
+      "title": "Terraform Module Design Patterns",
+      "summary": "Build reusable, maintainable Terraform modules: composition patterns, testing strategies, and versioning approaches.",
+      "category": "learning",
+      "keywords": [
+        "terraform",
+        "iac",
+        "infrastructure",
+        "devops",
+        "cloud"
+      ],
+      "source": "hashicorp",
+      "engagement_score": 4.4,
+      "created_at": "2026-01-07T12:00:00Z",
+      "content_type": "guide",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "dependency-update-available",
+      "title": "Security Update Available",
+      "summary": "lodash has a critical security update. 3 of your projects use the vulnerable version. Should I help you update?",
+      "category": "work",
+      "keywords": [
+        "security",
+        "dependencies",
+        "npm",
+        "maintenance"
+      ],
+      "source": "dependabot",
+      "engagement_score": 5.0,
+      "created_at": "2026-01-18T06:00:00Z",
+      "content_type": "notification",
+      "priority": "high"
+    },
+    {
+      "id": "graphql-federation",
+      "title": "GraphQL Federation in Production",
+      "summary": "Scaling GraphQL with Apollo Federation: gateway setup, subgraph design, and performance optimization tips.",
+      "category": "learning",
+      "keywords": [
+        "graphql",
+        "apollo",
+        "federation",
+        "api",
+        "microservices"
+      ],
+      "source": "apollo-blog",
+      "engagement_score": 4.6,
+      "created_at": "2026-01-10T13:00:00Z",
+      "content_type": "article",
+      "difficulty": "advanced"
+    },
+    {
+      "id": "eye-strain-prevention",
+      "title": "20-20-20 Rule Reminder",
+      "summary": "Every 20 minutes, look at something 20 feet away for 20 seconds. This simple habit reduces digital eye strain by 50%.",
+      "category": "health",
+      "keywords": [
+        "eye-health",
+        "wellness",
+        "ergonomics",
+        "productivity"
+      ],
+      "source": "health-tips",
+      "engagement_score": 2.5,
+      "created_at": "2026-01-18T11:00:00Z",
+      "content_type": "reminder",
+      "priority": "low"
+    },
+    {
+      "id": "sql-query-optimization",
+      "title": "SQL Query Optimization Techniques",
+      "summary": "Speed up slow queries: index strategies, query planning, common table expressions, and when to denormalize.",
+      "category": "learning",
+      "keywords": [
+        "sql",
+        "database",
+        "performance",
+        "optimization",
+        "queries"
+      ],
+      "source": "use-the-index-luke",
+      "engagement_score": 4.7,
+      "created_at": "2026-01-06T11:00:00Z",
+      "content_type": "guide",
+      "difficulty": "intermediate"
     }
   ],
   "users": [
@@ -482,7 +732,7 @@
         "cloud",
         "ai"
       ],
-      "frequency": "sometimes",
+      "frequency": "often",
       "preferred_hour_start": 9,
       "preferred_hour_end": 18,
       "created_at": "2026-01-01T00:00:00Z"
@@ -598,6 +848,38 @@
       "action": "started",
       "conversation_turns": 3,
       "created_at": "2026-01-21T21:58:17.103649"
+    },
+    {
+      "id": "566a03c0-111b-454e-821d-f1bf0121c04d",
+      "user_id": "demo_user",
+      "candidate_id": "aws-cost-anomaly",
+      "action": "started",
+      "conversation_turns": 1,
+      "created_at": "2026-01-21T22:12:00.250843"
+    },
+    {
+      "id": "36ca6d59-ea2c-40f1-b7c0-6fa24387806b",
+      "user_id": "demo_user",
+      "candidate_id": "kubernetes-cost-optimization",
+      "action": "dismissed",
+      "conversation_turns": 0,
+      "created_at": "2026-01-21T22:12:12.310298"
+    },
+    {
+      "id": "0fa0ba36-5a83-48f5-b6aa-3dd86fe5514c",
+      "user_id": "demo_user",
+      "candidate_id": "cap-theorem-deep-dive",
+      "action": "started",
+      "conversation_turns": 1,
+      "created_at": "2026-01-21T22:12:44.982394"
+    },
+    {
+      "id": "f9c4b6bb-efad-4a9c-b0d8-1640e8bd3aca",
+      "user_id": "demo_user",
+      "candidate_id": "cap-theorem-deep-dive",
+      "action": "started",
+      "conversation_turns": 0,
+      "created_at": "2026-01-21T22:15:27.240743"
     }
   ]
 }
